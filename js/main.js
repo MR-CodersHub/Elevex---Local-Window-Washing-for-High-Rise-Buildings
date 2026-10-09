@@ -453,7 +453,7 @@ function initScrollAnimations() {
   const revealInView = () => {
     elements.forEach(el => {
       const rect = el.getBoundingClientRect();
-      if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) + 120) {
+      if (rect.top <= (window.innerHeight || document.documentElement.clientHeight) + 350) {
         el.classList.add('is-visible');
       }
     });
@@ -470,8 +470,8 @@ function initScrollAnimations() {
         }
       });
     }, {
-      rootMargin: '100px 0px 100px 0px',
-      threshold: 0.01
+      rootMargin: '350px 0px 350px 0px',
+      threshold: 0
     });
 
     elements.forEach(el => {
@@ -483,8 +483,14 @@ function initScrollAnimations() {
     elements.forEach(el => el.classList.add('is-visible'));
   }
 
+  // Safety fallback: reveal all elements so no content remains stuck as a blank void
+  setTimeout(() => {
+    elements.forEach(el => el.classList.add('is-visible'));
+  }, 600);
+
   window.addEventListener('scroll', revealInView, { passive: true });
   window.addEventListener('resize', revealInView, { passive: true });
+  window.addEventListener('load', revealInView, { passive: true });
 }
 
 /* ==========================================================================
