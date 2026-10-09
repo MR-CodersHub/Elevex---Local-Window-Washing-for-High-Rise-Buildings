@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Manager Portal | Elevex High-Rise Facade Solutions</title>
+  <meta name="description"
+    content="Dedicated high-rise window cleaning and commercial building maintenance portal for facility directors and property managers. Schedule facade drops, track safety RAMS, and review audit reports.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem('elevex_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      var savedDir = localStorage.getItem('elevex_dir') || 'ltr';
+      document.documentElement.setAttribute('dir', savedDir);
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+
+<body class="portal-body">
+
+  <div class="portal-layout">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="portal-sidebar" id="portalSidebar">
+      <a href="index.html" class="portal-sidebar-brand" title="Return to Elevex Main Site">
+        <div class="portal-brand-logo">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="elxPink" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#d9043d" />
+                <stop offset="50%" stop-color="#ff1e56" />
+                <stop offset="100%" stop-color="#ff577d" />
+              </linearGradient>
+              <linearGradient id="elxCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#0284c7" />
+              </linearGradient>
+            </defs>
+            <path d="M5 26V13.5L11 9.5V26H5Z" fill="#15213b" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.2"
+              stroke-linejoin="round" />
+            <path d="M11 26V7.5L16 3.5L21 7.5V26H11Z" fill="url(#elxPink)" />
+            <path d="M21 26V9.5L27 13.5V26H21Z" fill="#15213b" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.2"
+              stroke-linejoin="round" />
+            <line x1="16" y1="5.5" x2="16" y2="25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" />
+            <path d="M7 21L16 13L25 21" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M9.5 24.5L16 18.5L22.5 24.5" stroke="url(#elxCyan)" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="portal-brand-text">
+          <span class="portal-brand-title">Elev<span>ex</span></span>
+          <span class="portal-brand-badge">Facility Portal</span>
+        </div>
+      </a>
+
+      <!-- Facility Director User Card -->
+      <div class="portal-sidebar-user">
+        <div class="portal-user-avatar">MS</div>
+        <div class="portal-user-meta">
+          <div class="portal-user-name" id="sidebarUserName">Marcus Sterling</div>
+          <div class="portal-user-role">Facility Director</div>
+          <div class="portal-user-facility" id="sidebarFacilityLabel">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 4v14" />
+            </svg>
+            <span>Meridian Tower (52F)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="portal-nav">
+        <div class="portal-nav-section-label">Facade Operations</div>
+
+        <a href="#overview" class="portal-nav-item active" data-tab="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="14" y="14" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+          </svg>
+          <span>Overview</span>
+        </a>
+
+        <a href="#schedule" class="portal-nav-item" data-tab="schedule">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span>Cleaning Schedule</span>
+          <span class="portal-nav-badge">3</span>
+        </a>
+
+        <a href="#safety" class="portal-nav-item" data-tab="safety">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span>Safety &amp; RAMS</span>
+          <span class="portal-nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">100%</span>
+        </a>
+
+        <a href="#reports" class="portal-nav-item" data-tab="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
+          <span>Service Reports</span>
+          <span class="portal-nav-badge">18</span>
+        </a>
+
+        <div class="portal-nav-section-label">Account &amp; Property</div>
+
+        <a href="#invoices" class="portal-nav-item" data-tab="invoices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+          </svg>
+          <span>Invoices &amp; Billing</span>
+          <span class="portal-nav-badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">1</span>
+        </a>
+
+        <a href="#profile" class="portal-nav-item" data-tab="profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <span>Profile &amp; Building</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Support / Emergency Card -->
+      <div class="portal-sidebar-footer">
+        <div class="portal-support-card">
+          <div class="portal-support-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+              stroke-width="2.5">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>24/7 Rigging Hotline</span>
+          </div>
+          <div class="portal-support-desc">Direct line to Level 3 site supervisor &amp; emergency aerial team.</div>
+          <a href="tel:18005847673" class="portal-support-btn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            <span>(800) 584-ROPE</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <div class="portal-sidebar-overlay" id="portalSidebarOverlay"></div>
+
+    <!-- MAIN PORTAL WRAPPER -->
+    <div class="portal-main">
+      <!-- TOPBAR -->
+      <header class="portal-topbar">
+        <div class="portal-topbar-left">
+          <button class="portal-sidebar-toggle-btn" id="portalSidebarToggle" aria-label="Toggle Navigation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+
+          <a href="index.html" class="portal-mobile-brand" title="ELEVEX Home">
+            <div class="portal-brand-logo" style="width: 32px; height: 32px;">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="elxPink" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#d9043d" />
+                    <stop offset="50%" stop-color="#ff1e56" />
+                    <stop offset="100%" stop-color="#ff577d" />
+                  </linearGradient>
+                  <linearGradient id="elxCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8" />
+                    <stop offset="0%" stop-color="#0284c7" />
+                  </linearGradient>
+                </defs>
+                <path d="M5 26V13.5L11 9.5V26H5Z" fill="#15213b" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.2"
+                  stroke-linejoin="round" />
+                <path d="M11 26V7.5L16 3.5L21 7.5V26H11Z" fill="url(#elxPink)" />
+                <path d="M21 26V9.5L27 13.5V26H21Z" fill="#15213b" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1.2"
+                  stroke-linejoin="round" />
+                <line x1="16" y1="5.5" x2="16" y2="25" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M7 21L16 13L25 21" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M9.5 24.5L16 18.5L22.5 24.5" stroke="url(#elxCyan)" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="portal-brand-title" style="font-size: 1.1rem;">Elev<span>ex</span></span>
+          </a>
+        </div>
+
+        <!-- Options: Facility Switcher -->
+        <div class="portal-facility-switcher">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+            stroke-width="2">
+            <path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 4v14" />
+          </svg>
+          <select class="portal-facility-select" id="portalFacilitySwitcher" aria-label="Select Active Facility">
+            <option value="meridian" selected>The Meridian Tower (52F)</option>
+            <option value="apex">Apex Horizon Plaza (38F)</option>
+            <option value="central">One Central Center (44F)</option>
+          </select>
+        </div>
+
+        <div class="portal-topbar-right">
+          <!-- RTL Direction Toggle -->
+          <button class="portal-btn-icon js-rtl-toggle" id="portalRtlToggle" title="Toggle RTL / LTR Direction"
+            aria-label="Toggle RTL Direction">
+            <span class="rtl-badge" style="font-size: 0.75rem; font-weight: 800;">RTL</span>
+          </button>
+
+          <!-- Dark / Light Theme Toggle -->
+          <button class="portal-btn-icon js-theme-toggle" id="portalThemeToggle" title="Toggle Dark / Light Mode"
+            aria-label="Toggle Theme">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+
+          <!-- Link Back to Public Website -->
+          <a href="index.html" class="portal-btn-outline" title="Return to Public Website">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            <span>Website</span>
+          </a>
+
+          <!-- Quick Schedule Primary Action -->
+          <button class="portal-btn-primary js-open-schedule-modal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span>Schedule</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- PORTAL CONTENT AREA -->
+      <main class="portal-content">
+
+        <!-- ==================================================================
+             TAB 1: OVERVIEW DASHBOARD
+             ================================================================== -->
+        <section class="portal-tab-pane active" id="tabOverview">
+          <div class="portal-header-block">
+            <div>
+              <h1 class="portal-header-title">Welcome back, Marcus</h1>
+              <p class="portal-header-desc">
+                Facility Envelope Overview &bull; <strong id="overviewFacilityName"
+                  style="color: var(--portal-text-title);">The Meridian Financial Tower (52F)</strong>
+              </p>
+            </div>
+            <div>
+              <span class="portal-badge badge-valid">
+                <span class="portal-badge-dot"></span>
+                Contract Active
+              </span>
+            </div>
+          </div>
+
+          <!-- Summary Metric Cards -->
+          <div class="portal-stat-grid">
+            <!-- Card 1: Next Visit -->
+            <div class="portal-stat-card">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Next Cleaning Visit</span>
+                <div class="portal-stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="font-size: 1.55rem; color: var(--portal-text-title);">Tomorrow,
+                06:00 AM</div>
+              <div class="portal-stat-subtext">
+                <span style="color: var(--portal-accent-pink); font-weight: 700;">South Elevation</span> &bull; Crew
+                Alpha (Lead: D. Miller)
+              </div>
+            </div>
+
+            <!-- Card 2: Upcoming Visits -->
+            <div class="portal-stat-card stat-cyan">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Upcoming Visits</span>
+                <div class="portal-stat-icon icon-cyan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value">3 Scheduled</div>
+              <div class="portal-stat-subtext">Next drops on Oct 14 &bull; Oct 28 &bull; Nov 11</div>
+            </div>
+
+            <!-- Card 3: Completed Visits -->
+            <div class="portal-stat-card stat-emerald">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Completed Drops</span>
+                <div class="portal-stat-icon icon-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value">18 Drops</div>
+              <div class="portal-stat-subtext">100% Zero lost-time incidents recorded</div>
+            </div>
+
+            <!-- Card 4: Safety Compliance -->
+            <div class="portal-stat-card stat-emerald">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Safety Compliance</span>
+                <div class="portal-stat-icon icon-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="color: #34d399;">100% Valid</div>
+              <div class="portal-stat-subtext">8/8 Rigging certs &amp; site RAMS approved</div>
+            </div>
+          </div>
+
+          <!-- Secondary Metric Cards Row -->
+          <div class="portal-stat-grid cols-3" style="margin-bottom: 28px;">
+            <!-- Card 5: Latest Service Report -->
+            <div class="portal-stat-card stat-cyan">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Latest Service Report</span>
+                <div class="portal-stat-icon icon-cyan">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="font-size: 1.5rem;">99.8% Pass Rate</div>
+              <div class="portal-stat-subtext">Oct 04 Audit &bull; 0.00 TDS Streak-Free Passed</div>
+            </div>
+
+            <!-- Card 6: Pending Invoices -->
+            <div class="portal-stat-card stat-amber">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Pending Invoices</span>
+                <div class="portal-stat-icon icon-amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="color: #fbbf24;">$14,200.00</div>
+              <div class="portal-stat-subtext">1 Invoice due Oct 25 &bull; Net-30 Terms</div>
+            </div>
+
+            <!-- Card 7: Total Services Completed -->
+            <div class="portal-stat-card">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Fiscal Year Facade Care</span>
+                <div class="portal-stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value">$128,400.00</div>
+              <div class="portal-stat-subtext">42,000 sq ft glass cleaned in 2026</div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Bar -->
+          <div class="portal-quick-actions">
+            <div class="portal-quick-actions-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+                stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              <span>Property Manager Quick Commands</span>
+            </div>
+            <div class="portal-quick-actions-btns">
+              <button class="portal-btn-outline js-switch-tab" data-target="tabSafety">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>View Safety Documents</span>
+              </button>
+              <button class="portal-btn-outline js-switch-tab" data-target="tabReports">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                </svg>
+                <span>View Service Reports</span>
+              </button>
+              <button class="portal-btn-outline js-switch-tab" data-target="tabInvoices">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <line x1="2" y1="10" x2="22" y2="10" />
+                </svg>
+                <span>View Invoices</span>
+              </button>
+              <button class="portal-btn-primary js-open-schedule-modal">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                <span>Schedule</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Two-Column Operational HUD -->
+          <div class="portal-grid-2">
+            <!-- Active Facade Drop Telemetry -->
+            <div class="portal-card" style="margin-bottom: 0;">
+              <div class="portal-card-header">
+                <h3 class="portal-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+                    stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  <span>Live Facade Operation &bull; South Elevation</span>
+                </h3>
+                <span class="portal-badge badge-scheduled">
+                  <span class="portal-badge-dot"></span>
+                  In Progress (Level 38)
+                </span>
+              </div>
+              <div
+                style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                  <div>
+                    <div
+                      style="font-size: 0.75rem; text-transform: uppercase; color: var(--portal-text-muted); font-weight: 700;">
+                      Drop Location</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--portal-text-title); margin-top: 4px;">
+                      Floors 30–52</div>
+                    <div style="font-size: 0.75rem; color: var(--portal-cyan);">South Curtain Wall</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 0.75rem; text-transform: uppercase; color: var(--portal-text-muted); font-weight: 700;">
+                      Water Purity</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: #34d399; margin-top: 4px;">0.00 TDS</div>
+                    <div style="font-size: 0.75rem; color: #34d399;">100% De-Ionized</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size: 0.75rem; text-transform: uppercase; color: var(--portal-text-muted); font-weight: 700;">
+                      Rooftop Wind</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--portal-text-title); margin-top: 4px;">
+                      9.4 Knots</div>
+                    <div style="font-size: 0.75rem; color: #34d399;">Safe Limit: 25 Knots</div>
+                  </div>
+                </div>
+              </div>
+              <div style="font-size: 0.88rem; color: var(--portal-text-body); line-height: 1.6;">
+                <strong>Rigging Supervisor Note:</strong> Two-man abseil descent commenced at 06:15 AM following dawn
+                anchor proof-load verification and street exclusion zone cordon. Zero lost-time safety incidents.
+                Cleaned through panel section 38-B.
+              </div>
+            </div>
+
+            <!-- Recent Facility Activity Stream -->
+            <div class="portal-card" style="margin-bottom: 0;">
+              <div class="portal-card-header">
+                <h3 class="portal-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-cyan)"
+                    stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                  <span>Compliance Feed</span>
+                </h3>
+                <span style="font-size: 0.78rem; color: var(--portal-text-muted);">Real-Time Audit</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; gap: 12px; font-size: 0.85rem;">
+                  <div
+                    style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-top: 6px; flex-shrink: 0;">
+                  </div>
+                  <div>
+                    <strong style="color: var(--portal-text-title);">RAMS Signed &amp; Archived</strong>
+                    <div style="color: var(--portal-text-muted); font-size: 0.78rem;">Level 3 Supervisor D. Miller
+                      executed drop safety sign-off.</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; font-size: 0.85rem;">
+                  <div
+                    style="width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; margin-top: 6px; flex-shrink: 0;">
+                  </div>
+                  <div>
+                    <strong style="color: var(--portal-text-title);">Tenant Notification Dispatched</strong>
+                    <div style="color: var(--portal-text-muted); font-size: 0.78rem;">Digital elevation timetable sent
+                      to 45 commercial tenants.</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; font-size: 0.85rem;">
+                  <div
+                    style="width: 8px; height: 8px; border-radius: 50%; background: #fbbf24; margin-top: 6px; flex-shrink: 0;">
+                  </div>
+                  <div>
+                    <strong style="color: var(--portal-text-title);">Roof Anchor Inspection Due Soon</strong>
+                    <div style="color: var(--portal-text-muted); font-size: 0.78rem;">Statutory EN 795 Eyebolt re-test
+                      scheduled for Nov 14.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB 2: CLEANING SCHEDULE (Create & Manage Visits)
+             ================================================================== -->
+        <section class="portal-tab-pane" id="tabSchedule">
+          <div class="portal-header-block">
+            <div>
+              <h2 class="portal-header-title">Cleaning Schedule &amp; Drop Calendar</h2>
+              <p class="portal-header-desc">
+                Schedule recurring and one-off high-altitude window cleaning drops for your tower elevations.
+              </p>
+            </div>
+            <button class="portal-btn-primary js-open-schedule-modal">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span>Schedule Cleaning Visit</span>
+            </button>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div class="portal-card">
+            <div class="portal-card-header">
+              <div class="portal-filter-chips" id="scheduleFilterChips">
+                <button class="portal-filter-chip active" data-filter="all">All Visits (6)</button>
+                <button class="portal-filter-chip" data-filter="upcoming">Upcoming (3)</button>
+                <button class="portal-filter-chip" data-filter="completed">Completed (3)</button>
+                <button class="portal-filter-chip" data-filter="hold">Weather Holds (0)</button>
+              </div>
+              <span style="font-size: 0.8rem; color: var(--portal-text-muted);">Auto-synced with Elevex Operations
+                Desk</span>
+            </div>
+
+            <!-- Schedule Table -->
+            <div class="portal-table-wrapper">
+              <table class="portal-table" id="scheduleTable">
+                <thead>
+                  <tr>
+                    <th>Visit ID</th>
+                    <th>Date &amp; Shift</th>
+                    <th>Elevation / Section</th>
+                    <th>Cleaning Service</th>
+                    <th>Access Method</th>
+                    <th>Assigned Crew</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="scheduleTableBody">
+                  <tr data-status="upcoming">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-109</strong></td>
+                    <td>Tomorrow &bull; 06:00 AM</td>
+                    <td>South Curtain Wall (Floors 30–52)</td>
+                    <td>0.00 PPM Pure Water Wash</td>
+                    <td>Twin-Rope Industrial Abseil</td>
+                    <td>Crew Alpha (4 Riggers)</td>
+                    <td><span class="portal-badge badge-scheduled"><span class="portal-badge-dot"></span>
+                        Confirmed</span></td>
+                    <td>
+                      <div style="display: flex; gap: 6px;">
+                        <button class="portal-action-btn js-reschedule-btn" data-id="DRP-2026-109">Reschedule</button>
+                        <button class="portal-action-btn btn-outline-danger js-cancel-btn"
+                          data-id="DRP-2026-109">Cancel</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="upcoming">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-110</strong></td>
+                    <td>Oct 14, 2026 &bull; 06:00 AM</td>
+                    <td>East &amp; West Towers (Floors 1–30)</td>
+                    <td>Low-E Coated Glass Clean</td>
+                    <td>Dual-Rope Suspension</td>
+                    <td>Crew Bravo (3 Riggers)</td>
+                    <td><span class="portal-badge badge-scheduled"><span class="portal-badge-dot"></span>
+                        Confirmed</span></td>
+                    <td>
+                      <div style="display: flex; gap: 6px;">
+                        <button class="portal-action-btn js-reschedule-btn" data-id="DRP-2026-110">Reschedule</button>
+                        <button class="portal-action-btn btn-outline-danger js-cancel-btn"
+                          data-id="DRP-2026-110">Cancel</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="upcoming">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-111</strong></td>
+                    <td>Oct 28, 2026 &bull; 07:30 AM</td>
+                    <td>Ground Podium &amp; Atrium Canopy</td>
+                    <td>Architectural Cladding De-Soiling</td>
+                    <td>MEWP Spider Boom Lift</td>
+                    <td>Crew Charlie (2 Techs)</td>
+                    <td><span class="portal-badge badge-pending"><span class="portal-badge-dot"></span>
+                        Permitting</span></td>
+                    <td>
+                      <div style="display: flex; gap: 6px;">
+                        <button class="portal-action-btn js-reschedule-btn" data-id="DRP-2026-111">Reschedule</button>
+                        <button class="portal-action-btn btn-outline-danger js-cancel-btn"
+                          data-id="DRP-2026-111">Cancel</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="completed">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-108</strong></td>
+                    <td>Oct 04, 2026 &bull; 06:00 AM</td>
+                    <td>North Elevation (All 52 Floors)</td>
+                    <td>0.00 PPM Pure Water Wash</td>
+                    <td>Twin-Rope Industrial Abseil</td>
+                    <td>Crew Alpha (4 Riggers)</td>
+                    <td><span class="portal-badge badge-completed"><span class="portal-badge-dot"></span>
+                        Completed</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-report-btn" data-id="REP-2026-108">View Audit</button>
+                    </td>
+                  </tr>
+                  <tr data-status="completed">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-107</strong></td>
+                    <td>Sep 21, 2026 &bull; 06:00 AM</td>
+                    <td>West Elevation &amp; Parapet Glass</td>
+                    <td>Full Envelope Wash</td>
+                    <td>Twin-Rope Industrial Abseil</td>
+                    <td>Crew Bravo (3 Riggers)</td>
+                    <td><span class="portal-badge badge-completed"><span class="portal-badge-dot"></span>
+                        Completed</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-report-btn" data-id="REP-2026-107">View Audit</button>
+                    </td>
+                  </tr>
+                  <tr data-status="completed">
+                    <td><strong style="color: var(--portal-text-title);">#DRP-2026-106</strong></td>
+                    <td>Sep 08, 2026 &bull; 06:30 AM</td>
+                    <td>South Elevation (Floors 1–30)</td>
+                    <td>Mineral Stain Removal</td>
+                    <td>Twin-Rope Industrial Abseil</td>
+                    <td>Crew Alpha (4 Riggers)</td>
+                    <td><span class="portal-badge badge-completed"><span class="portal-badge-dot"></span>
+                        Completed</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-report-btn" data-id="REP-2026-106">View Audit</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB 3: SAFETY CERTIFICATIONS & RAMS DOCUMENTS
+             ================================================================== -->
+        <section class="portal-tab-pane" id="tabSafety">
+          <div class="portal-header-block">
+            <div>
+              <h2 class="portal-header-title">Safety Certifications &amp; Crew Compliance</h2>
+              <p class="portal-header-desc">
+                Review verified IRATA/SPRAT credentials, statutory rope equipment proof-load logs, and site-specific
+                RAMS.
+              </p>
+            </div>
+            <div>
+              <button class="portal-btn-outline"
+                onclick="showPortalToast('Downloading complete compliance ZIP pack...');">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span>Download Compliance Pack (PDF)</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="portal-card">
+            <div class="portal-card-header">
+              <div class="portal-filter-chips" id="safetyFilterChips">
+                <button class="portal-filter-chip active" data-filter="all">All Documents (8)</button>
+                <button class="portal-filter-chip" data-filter="valid">Valid (7)</button>
+                <button class="portal-filter-chip" data-filter="expiring">Expiring Soon (1)</button>
+                <button class="portal-filter-chip" data-filter="review">Pending Review (0)</button>
+              </div>
+              <span style="font-size: 0.8rem; color: #34d399; font-weight: 700;">&bull; £10,000,000 Public Liability
+                Insured</span>
+            </div>
+
+            <div class="portal-table-wrapper">
+              <table class="portal-table" id="safetyTable">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Crew / Rigging Team</th>
+                    <th>Issue Date</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="safetyTableBody">
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">IRATA Level 3 Rope Access Supervisor
+                        Certification</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Dave Miller &bull; Cert #3/11849
+                        &bull; Rigging &amp; Rescue Safety Lead</div>
+                    </td>
+                    <td>Crew Alpha</td>
+                    <td>15 Jan 2025</td>
+                    <td>15 Jan 2028</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="IRATA Level 3 Certification"
+                        data-crew="Crew Alpha (D. Miller)" data-status="Valid" data-expiry="15 Jan 2028">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Working-at-Height Statutory Rescue
+                        Training</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Mid-air aerial companion haulage
+                        &amp; stretcher descent drills</div>
+                    </td>
+                    <td>All Deployed Crews</td>
+                    <td>10 May 2025</td>
+                    <td>10 May 2027</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Working-at-Height Training"
+                        data-crew="All Crews" data-status="Valid" data-expiry="10 May 2027">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Statutory 6-Month PPE &amp; Harness Proof-Load
+                        Inspection</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Teufelberger 11mm static lines
+                        &amp; Petzl I'D descender serial audit</div>
+                    </td>
+                    <td>Master Equipment Depot</td>
+                    <td>01 Aug 2026</td>
+                    <td>01 Feb 2027</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="PPE 6-Month Inspection"
+                        data-crew="Depot Log" data-status="Valid" data-expiry="01 Feb 2027">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Sonic Anemometer Calibration &amp; Wind Limit
+                        Cert</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Davis Vantage Pro2 &bull;
+                        25-knot mandatory stand-down threshold</div>
+                    </td>
+                    <td>Site Telemetry Unit</td>
+                    <td>12 Apr 2026</td>
+                    <td>12 Apr 2027</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Sonic Anemometer Calibration"
+                        data-crew="Telemetry" data-status="Valid" data-expiry="12 Apr 2027">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Site-Specific Risk Assessment &amp; Method
+                        Statement (RAMS)</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Meridian Tower 52-Story Drop
+                        Operations Plan (RAMS-2026-Q4)</div>
+                    </td>
+                    <td>Facility Engineering</td>
+                    <td>01 Oct 2026</td>
+                    <td>31 Dec 2026</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Site RAMS (RAMS-2026-Q4)"
+                        data-crew="Meridian Tower" data-status="Valid" data-expiry="31 Dec 2026">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="expiring">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Rooftop Anchor Eyebolt Proof-Load Pull Test Log
+                        (EN 795)</strong>
+                      <div style="font-size: 0.74rem; color: #fbbf24;">48 Structural Eyebolts &bull; 15 kN Tensile Test
+                        &bull; Recertification Due Soon</div>
+                    </td>
+                    <td>Building Anchor System</td>
+                    <td>14 Nov 2025</td>
+                    <td>14 Nov 2026</td>
+                    <td><span class="portal-badge badge-expiring"><span class="portal-badge-dot"></span> Expiring in
+                        37d</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Anchor Pull-Test Log (EN 795)"
+                        data-crew="Facility Anchors" data-status="Expiring Soon"
+                        data-expiry="14 Nov 2026">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Commercial High-Altitude Public Liability
+                        Insurance (£10M)</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Allianz Global Corporate &bull;
+                        Policy #AC-FAC-99420-UK</div>
+                    </td>
+                    <td>Elevex Corporate</td>
+                    <td>01 Jan 2026</td>
+                    <td>31 Dec 2026</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Commercial Liability Insurance"
+                        data-crew="Allianz Policy" data-status="Valid" data-expiry="31 Dec 2026">Verify</button>
+                    </td>
+                  </tr>
+                  <tr data-status="valid">
+                    <td>
+                      <strong style="color: var(--portal-text-title);">Emergency Aerial Companion Stretcher Rescue
+                        Procedure</strong>
+                      <div style="font-size: 0.74rem; color: var(--portal-text-muted);">Pre-rigged dual-line companion
+                        recovery &bull; 6-minute target evacuation</div>
+                    </td>
+                    <td>Safety Directorate</td>
+                    <td>01 Sep 2026</td>
+                    <td>01 Sep 2027</td>
+                    <td><span class="portal-badge badge-valid"><span class="portal-badge-dot"></span> Valid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-doc-btn" data-doc="Emergency Rescue Plan"
+                        data-crew="Safety Directorate" data-status="Valid" data-expiry="01 Sep 2027">Verify</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB 4: SERVICE REPORTS & OPTICAL AUDITS
+             ================================================================== -->
+        <section class="portal-tab-pane" id="tabReports">
+          <div class="portal-header-block">
+            <div>
+              <h2 class="portal-header-title">Service Reports &amp; Optical Glass Audits</h2>
+              <p class="portal-header-desc">
+                Download verified post-drop completion sign-offs with before/after photos, TDS readings, and seal
+                checks.
+              </p>
+            </div>
+            <button class="portal-btn-outline" onclick="showPortalToast('Exporting complete audit report history...');">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Export All Reports (CSV/PDF)</span>
+            </button>
+          </div>
+
+          <div class="portal-card">
+            <div class="portal-table-wrapper">
+              <table class="portal-table">
+                <thead>
+                  <tr>
+                    <th>Report ID</th>
+                    <th>Service Date</th>
+                    <th>Building Elevation</th>
+                    <th>Access Method</th>
+                    <th>Assigned Crew</th>
+                    <th>Cleaned Area</th>
+                    <th>Optical Rating</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="color: var(--portal-text-title);">REP-2026-108</strong></td>
+                    <td>04 Oct 2026</td>
+                    <td>North Elevation (Floors 1–52)</td>
+                    <td>Twin-Rope Abseil</td>
+                    <td>Crew Alpha (D. Miller)</td>
+                    <td>14,200 sq ft</td>
+                    <td><span style="color: #34d399; font-weight: 700;">100% (0.00 TDS)</span></td>
+                    <td><span class="portal-badge badge-valid">Zero Defects</span></td>
+                    <td>
+                      <button class="portal-action-btn js-open-report-modal" data-id="REP-2026-108"
+                        data-date="04 Oct 2026" data-elevation="North Elevation" data-score="100%">View Audit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: var(--portal-text-title);">REP-2026-107</strong></td>
+                    <td>21 Sep 2026</td>
+                    <td>West Elevation &amp; Roof Parapets</td>
+                    <td>Twin-Rope Abseil</td>
+                    <td>Crew Bravo (S. Jenkins)</td>
+                    <td>12,800 sq ft</td>
+                    <td><span style="color: #34d399; font-weight: 700;">99.6% (0.00 TDS)</span></td>
+                    <td><span class="portal-badge badge-valid">Zero Defects</span></td>
+                    <td>
+                      <button class="portal-action-btn js-open-report-modal" data-id="REP-2026-107"
+                        data-date="21 Sep 2026" data-elevation="West Elevation" data-score="99.6%">View Audit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: var(--portal-text-title);">REP-2026-106</strong></td>
+                    <td>08 Sep 2026</td>
+                    <td>South Elevation (Floors 1–30)</td>
+                    <td>Twin-Rope Abseil</td>
+                    <td>Crew Alpha (D. Miller)</td>
+                    <td>11,400 sq ft</td>
+                    <td><span style="color: #34d399; font-weight: 700;">100% (0.00 TDS)</span></td>
+                    <td><span class="portal-badge badge-valid">Zero Defects</span></td>
+                    <td>
+                      <button class="portal-action-btn js-open-report-modal" data-id="REP-2026-106"
+                        data-date="08 Sep 2026" data-elevation="South Elevation" data-score="100%">View Audit</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: var(--portal-text-title);">REP-2026-105</strong></td>
+                    <td>24 Aug 2026</td>
+                    <td>Podium Glass &amp; Canopy Roof</td>
+                    <td>MEWP Spider Lift</td>
+                    <td>Crew Charlie (R. Evans)</td>
+                    <td>4,600 sq ft</td>
+                    <td><span style="color: #34d399; font-weight: 700;">100% (0.00 TDS)</span></td>
+                    <td><span class="portal-badge badge-valid">Zero Defects</span></td>
+                    <td>
+                      <button class="portal-action-btn js-open-report-modal" data-id="REP-2026-105"
+                        data-date="24 Aug 2026" data-elevation="Podium Canopy" data-score="100%">View Audit</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB 5: INVOICES & BILLING
+             ================================================================== -->
+        <section class="portal-tab-pane" id="tabInvoices">
+          <div class="portal-header-block">
+            <div>
+              <h2 class="portal-header-title">Invoices &amp; Billing Management</h2>
+              <p class="portal-header-desc">
+                Review itemized facade service billing, download statutory tax receipts, and manage payment remittance.
+              </p>
+            </div>
+          </div>
+
+          <!-- Invoice Summary Cards -->
+          <div class="portal-stat-grid">
+            <div class="portal-stat-card">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Total Invoiced (YTD)</span>
+                <div class="portal-stat-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value">$128,400.00</div>
+              <div class="portal-stat-subtext">6 Total Invoices Billed</div>
+            </div>
+
+            <div class="portal-stat-card stat-emerald">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Total Paid</span>
+                <div class="portal-stat-icon icon-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="color: #34d399;">$114,200.00</div>
+              <div class="portal-stat-subtext">5 Invoices Cleared &bull; Net-30</div>
+            </div>
+
+            <div class="portal-stat-card stat-amber">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Pending Payment</span>
+                <div class="portal-stat-icon icon-amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="color: #fbbf24;">$14,200.00</div>
+              <div class="portal-stat-subtext">1 Invoice Due Oct 25, 2026</div>
+            </div>
+
+            <div class="portal-stat-card stat-emerald">
+              <div class="portal-stat-top">
+                <span class="portal-stat-label">Overdue Balance</span>
+                <div class="portal-stat-icon icon-emerald">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                </div>
+              </div>
+              <div class="portal-stat-value" style="color: #34d399;">$0.00</div>
+              <div class="portal-stat-subtext">All accounts in pristine standing</div>
+            </div>
+          </div>
+
+          <div class="portal-card card-table">
+            <div class="portal-card-header" style="padding: 18px 20px 0; border-bottom: none; margin-bottom: 0;">
+              <div class="portal-filter-chips" id="invoiceFilterChips" style="margin-bottom: 14px;">
+                <button class="portal-filter-chip active" data-filter="all">All Invoices (4)</button>
+                <button class="portal-filter-chip" data-filter="paid">Paid &amp; Settled (3)</button>
+                <button class="portal-filter-chip" data-filter="pending">Pending Payment (1)</button>
+              </div>
+              <span style="font-size: 0.8rem; color: var(--portal-text-muted); padding-bottom: 14px;">Remittance Terms:
+                Net-30 Corporate</span>
+            </div>
+
+            <div class="portal-table-wrapper">
+              <table class="portal-table" id="invoicesTable">
+                <thead>
+                  <tr>
+                    <th>Invoice #</th>
+                    <th>Service Description</th>
+                    <th>Invoice Date</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-status="pending">
+                    <td><strong style="color: var(--portal-text-title);">INV-2026-0842</strong></td>
+                    <td>North Elevation 52-Story Drop (REP-2026-108)</td>
+                    <td>04 Oct 2026</td>
+                    <td>25 Oct 2026</td>
+                    <td><strong style="color: var(--portal-text-title);">$14,200.00</strong></td>
+                    <td><span class="portal-badge badge-review">Pending Approval</span></td>
+                    <td>
+                      <div style="display: flex; gap: 6px;">
+                        <button class="portal-action-btn js-view-invoice-btn" data-id="INV-2026-0842"
+                          data-amount="$14,200.00" data-status="Pending Approval">View</button>
+                        <button class="portal-action-btn"
+                          onclick="showPortalToast('Downloading PDF for INV-2026-0842...');">PDF</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr data-status="paid">
+                    <td><strong style="color: var(--portal-text-title);">INV-2026-0791</strong></td>
+                    <td>West Elevation &bull; Abseil Wash (REP-2026-107)</td>
+                    <td>21 Sep 2026</td>
+                    <td>10 Oct 2026</td>
+                    <td><strong style="color: var(--portal-text-title);">$18,400.00</strong></td>
+                    <td><span class="portal-badge badge-valid">Paid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-invoice-btn" data-id="INV-2026-0791"
+                        data-amount="$18,400.00" data-status="Paid">Receipt</button>
+                    </td>
+                  </tr>
+                  <tr data-status="paid">
+                    <td><strong style="color: var(--portal-text-title);">INV-2026-0734</strong></td>
+                    <td>South Elevation Partial Drop (REP-2026-106)</td>
+                    <td>08 Sep 2026</td>
+                    <td>28 Sep 2026</td>
+                    <td><strong style="color: var(--portal-text-title);">$16,500.00</strong></td>
+                    <td><span class="portal-badge badge-valid">Paid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-invoice-btn" data-id="INV-2026-0734"
+                        data-amount="$16,500.00" data-status="Paid">Receipt</button>
+                    </td>
+                  </tr>
+                  <tr data-status="paid">
+                    <td><strong style="color: var(--portal-text-title);">INV-2026-0688</strong></td>
+                    <td>Canopy MEWP Boom Wash (REP-2026-105)</td>
+                    <td>24 Aug 2026</td>
+                    <td>14 Sep 2026</td>
+                    <td><strong style="color: var(--portal-text-title);">$8,900.00</strong></td>
+                    <td><span class="portal-badge badge-valid">Paid</span></td>
+                    <td>
+                      <button class="portal-action-btn js-view-invoice-btn" data-id="INV-2026-0688"
+                        data-amount="$8,900.00" data-status="Paid">Receipt</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB 6: PROFILE & BUILDING DETAILS
+             ================================================================== -->
+        <section class="portal-tab-pane" id="tabProfile">
+          <div class="portal-header-block">
+            <div>
+              <h2 class="portal-header-title">Facility Profile &amp; Building Envelope Specs</h2>
+              <p class="portal-header-desc">
+                Manage registered property specifications, anchor rigging hardware logs, and property manager contacts.
+              </p>
+            </div>
+          </div>
+
+          <div class="portal-grid-equal-2">
+            <!-- Property Manager Contact Card -->
+            <div class="portal-card" style="margin-bottom: 0;">
+              <div class="portal-card-header">
+                <h3 class="portal-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+                    stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Property Director Information</span>
+                </h3>
+              </div>
+              <form id="profileContactForm"
+                onsubmit="event.preventDefault(); showPortalToast('Property Director contact details updated!');">
+                <div class="portal-form-grid" style="grid-template-columns: 1fr;">
+                  <div class="portal-form-group">
+                    <label class="portal-label">Full Name</label>
+                    <input type="text" class="portal-input" id="profileManagerName" value="Marcus Sterling" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Management Company</label>
+                    <input type="text" class="portal-input" value="Meridian Commercial Properties Ltd" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Official Email</label>
+                    <input type="email" class="portal-input" value="m.sterling@meridiantower.com" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Direct Phone / Mobile</label>
+                    <input type="tel" class="portal-input" value="+1 (212) 555-0198" required>
+                  </div>
+                </div>
+                <div style="margin-top: 20px;">
+                  <button type="submit" class="portal-btn-primary">Save Contact Information</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Building Envelope Architecture Card -->
+            <div class="portal-card" style="margin-bottom: 0;">
+              <div class="portal-card-header">
+                <h3 class="portal-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-cyan)"
+                    stroke-width="2">
+                    <path d="M3 21h18M5 21V7l8-4v18M13 21V3l6 4v14" />
+                  </svg>
+                  <span>Registered Building Specifications</span>
+                </h3>
+              </div>
+              <form id="buildingSpecsForm"
+                onsubmit="event.preventDefault(); showPortalToast('Building envelope specifications saved successfully!');">
+                <div class="portal-form-grid">
+                  <div class="portal-form-group full-width">
+                    <label class="portal-label">Building Name</label>
+                    <input type="text" class="portal-input" id="specsBuildingName" value="The Meridian Financial Tower"
+                      required>
+                  </div>
+                  <div class="portal-form-group full-width">
+                    <label class="portal-label">Physical Street Address</label>
+                    <input type="text" class="portal-input"
+                      value="450 Tower Access Way, Metro Financial District, Suite 1200" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Building Type</label>
+                    <select class="portal-select">
+                      <option selected>Grade-A Commercial Tower</option>
+                      <option>High-Rise Luxury Residential Strata</option>
+                      <option>Mixed-Use Skyscraper &amp; Retail Podium</option>
+                    </select>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Approximate Height</label>
+                    <input type="text" class="portal-input" value="210 Meters (689 Feet)" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Number of Floors</label>
+                    <input type="number" class="portal-input" value="52" required>
+                  </div>
+                  <div class="portal-form-group">
+                    <label class="portal-label">Total Glazed Area</label>
+                    <input type="text" class="portal-input" value="38,500 sq meters" required>
+                  </div>
+                  <div class="portal-form-group full-width">
+                    <label class="portal-label">Rooftop Anchor &amp; Rigging Hardware Notes</label>
+                    <textarea
+                      class="portal-textarea">48x Statutory EN 795 Eyebolts tested Aug 2026. Davit track on West Roof parapet. North drop requires street exclusion zone on plaza level.</textarea>
+                  </div>
+                </div>
+                <div style="margin-top: 20px;">
+                  <button type="submit" class="portal-btn-primary">Update Building Specifications</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: SCHEDULE NEW CLEANING VISIT
+       ========================================================================== -->
+  <div class="portal-modal-backdrop" id="scheduleModal">
+    <div class="portal-modal-window">
+      <div class="portal-modal-header">
+        <h3 class="portal-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+            stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span>Schedule High-Rise Cleaning Visit</span>
+        </h3>
+        <button class="portal-modal-close js-close-modal">&times;</button>
+      </div>
+      <form id="newScheduleForm">
+        <div class="portal-modal-body">
+          <div class="portal-form-grid">
+            <div class="portal-form-group full-width">
+              <label class="portal-label">Target Building &bull; Registered Tower</label>
+              <select class="portal-select" id="schedBuilding" required>
+                <option value="Meridian Tower" selected>The Meridian Financial Tower (52 Floors)</option>
+                <option value="Apex Horizon">Apex Horizon Financial Plaza (38 Floors)</option>
+                <option value="Central Plaza">One Central Corporate Center (44 Floors)</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group full-width">
+              <label class="portal-label">Cleaning Service Type</label>
+              <select class="portal-select" id="schedService" required>
+                <option value="0.00 PPM Pure Water Dual Abseil" selected>0.00 PPM Pure Water Reverse Osmosis Wash
+                </option>
+                <option value="Twin-Rope Industrial Abseiling">Twin-Rope Industrial Abseil Complete Clean</option>
+                <option value="Low-E Coated Solar Glass Detailing">Architectural Low-E Coated Glass Detailing</option>
+                <option value="Facade Cladding Pressure Washing">Facade Cladding &amp; Spandrel De-Soiling</option>
+                <option value="High-Reach MEWP Cherry Picker">Powered Platform MEWP Spider Lift Access</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Preferred Date</label>
+              <input type="date" class="portal-input" id="schedDate" required>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Preferred Shift Window</label>
+              <select class="portal-select" id="schedTime" required>
+                <option value="Dawn Shift 06:00 AM">Dawn Shift &bull; 06:00 AM – 12:00 PM</option>
+                <option value="Midday Shift 11:00 AM">Midday Shift &bull; 11:00 AM – 05:00 PM</option>
+                <option value="Night Shift (Atrium)">Night Shift &bull; 08:00 PM – 02:00 AM (Atrium)</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Cleaning Frequency</label>
+              <select class="portal-select" id="schedFrequency" required>
+                <option value="One-Off">One-Off Scheduled Drop</option>
+                <option value="Bi-Weekly">Bi-Weekly High-Rise Cycle</option>
+                <option value="Monthly" selected>Monthly Maintenance Program</option>
+                <option value="Quarterly">Quarterly Architectural Deep Clean</option>
+                <option value="Bi-Annual">Bi-Annual Exterior Wash</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Access Method Required</label>
+              <select class="portal-select" id="schedAccess" required>
+                <option value="Twin-Rope Industrial Abseil" selected>Twin-Rope Industrial Abseil (IRATA)</option>
+                <option value="Roof Davit Carriage System">Permanent Roof Davit Carriage System</option>
+                <option value="Powered MEWP Spider Lift">Ground-Based MEWP Spider Boom Lift</option>
+                <option value="Ground-Fed Pure Water Pole">Ground Pure Water Telescopic Reach</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Elevation / Drops</label>
+              <select class="portal-select" id="schedElevation" required>
+                <option value="South Curtain Wall (Floors 30–52)" selected>South Curtain Wall (Floors 30–52)</option>
+                <option value="North Elevation (All 52 Floors)">North Elevation (All 52 Floors)</option>
+                <option value="East Elevation (Floors 1–30)">East Elevation (Floors 1–30)</option>
+                <option value="West Elevation & Parapet Glass">West Elevation &amp; Parapet Glass</option>
+                <option value="Ground Podium Canopy">Ground Podium Canopy &amp; Retail Atrium</option>
+              </select>
+            </div>
+
+            <div class="portal-form-group">
+              <label class="portal-label">Building Height &amp; Floors</label>
+              <input type="text" class="portal-input" id="schedHeight" value="52 Floors (210m)" required>
+            </div>
+
+            <div class="portal-form-group full-width">
+              <label class="portal-label">Special Site Instructions / Exclusion Zone Requirements</label>
+              <textarea class="portal-textarea" id="schedInstructions"
+                placeholder="e.g. Notify South Plaza security to cordon sidewalk, wind cut-off at 20 knots, Low-E glass non-scratch requirement..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="portal-modal-footer">
+          <button type="button" class="portal-btn-outline js-close-modal">Cancel</button>
+          <button type="submit" class="portal-btn-primary">Confirm &amp; Dispatch Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: SAFETY DOCUMENT VERIFICATION
+       ========================================================================== -->
+  <div class="portal-modal-backdrop" id="docModal">
+    <div class="portal-modal-window">
+      <div class="portal-modal-header">
+        <h3 class="portal-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--portal-emerald)" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span id="docModalTitle">Safety Document Verification</span>
+        </h3>
+        <button class="portal-modal-close js-close-modal">&times;</button>
+      </div>
+      <div class="portal-modal-body">
+        <div
+          style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); border-radius: 12px; padding: 22px; text-align: center; margin-bottom: 20px;">
+          <div
+            style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: #34d399; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <h4 style="color: var(--portal-text-title); margin: 0 0 6px; font-size: 1.2rem;" id="docModalName">IRATA Level
+            3 Rigging Certification</h4>
+          <p style="color: var(--portal-text-muted); font-size: 0.85rem; margin: 0;" id="docModalMeta">Assigned to: Crew
+            Alpha (Dave Miller) &bull; Verified Valid by Elevex Safety Directorate</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 0.85rem;">
+          <div
+            style="background: var(--portal-card-alt); padding: 12px; border-radius: 8px; border: 1px solid var(--portal-border);">
+            <div style="color: var(--portal-text-muted); font-size: 0.74rem;">Accreditation Body</div>
+            <div style="font-weight: 700; color: var(--portal-text-title); margin-top: 2px;">IRATA International / SPRAT
+            </div>
+          </div>
+          <div
+            style="background: var(--portal-card-alt); padding: 12px; border-radius: 8px; border: 1px solid var(--portal-border);">
+            <div style="color: var(--portal-text-muted); font-size: 0.74rem;">Statutory Expiry</div>
+            <div style="font-weight: 700; color: #34d399; margin-top: 2px;" id="docModalExpiry">15 Jan 2028</div>
+          </div>
+        </div>
+      </div>
+      <div class="portal-modal-footer">
+        <button type="button" class="portal-btn-outline js-close-modal">Close</button>
+        <button type="button" class="portal-btn-primary"
+          onclick="showPortalToast('Downloading verified document PDF with digital seal...');">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>Download Verified PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: SERVICE REPORT FULL AUDIT
+       ========================================================================== -->
+  <div class="portal-modal-backdrop" id="reportModal">
+    <div class="portal-modal-window" style="max-width: 760px;">
+      <div class="portal-modal-header">
+        <h3 class="portal-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--portal-cyan)" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg>
+          <span id="reportModalTitle">Service Audit Report: REP-2026-108</span>
+        </h3>
+        <button class="portal-modal-close js-close-modal">&times;</button>
+      </div>
+      <div class="portal-modal-body">
+        <div
+          style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; text-align: center;">
+          <div
+            style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 0.72rem; color: var(--portal-text-muted);">Service Date</div>
+            <div style="font-weight: 700; color: var(--portal-text-title);" id="reportModalDate">04 Oct 2026</div>
+          </div>
+          <div
+            style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 0.72rem; color: var(--portal-text-muted);">Elevation</div>
+            <div style="font-weight: 700; color: var(--portal-text-title);" id="reportModalElevation">North Facade</div>
+          </div>
+          <div
+            style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 0.72rem; color: var(--portal-text-muted);">Water Purity</div>
+            <div style="font-weight: 700; color: #34d399;">0.00 TDS</div>
+          </div>
+          <div
+            style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); padding: 12px; border-radius: 8px;">
+            <div style="font-size: 0.72rem; color: var(--portal-text-muted);">QA Score</div>
+            <div style="font-weight: 700; color: #34d399;" id="reportModalScore">100% Zero Defects</div>
+          </div>
+        </div>
+
+        <h4 style="color: var(--portal-text-title); margin: 0 0 10px; font-size: 1rem;">Architectural Glass QA Audit Log
+        </h4>
+        <div
+          style="font-size: 0.88rem; color: var(--portal-text-body); line-height: 1.6; background: var(--portal-card-alt); border: 1px solid var(--portal-border); padding: 16px; border-radius: 8px; margin-bottom: 18px;">
+          All 52 stories of double-glazed curtain wall inspected following dual-rope descent. Zero silica deposit
+          streaks, zero chemical scum, and 100% silicone weather-gasket integrity verified. Non-scratch vulcanized
+          rubber tools utilized to safeguard exterior Low-E solar pyrolytic coating.
+        </div>
+
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--portal-border); padding-top: 14px; font-size: 0.82rem; color: var(--portal-text-muted);">
+          <div>Signed off by: <strong>Dave Miller (IRATA L3 #3/11849)</strong></div>
+          <div style="color: #34d399; font-weight: 700;">&check; Electronically Timestamped &bull; 04 Oct 2026, 14:22
+            GMT</div>
+        </div>
+      </div>
+      <div class="portal-modal-footer">
+        <button type="button" class="portal-btn-outline js-close-modal">Close</button>
+        <button type="button" class="portal-btn-primary"
+          onclick="showPortalToast('Downloading Signed Service Audit PDF...');">
+          <span>Download Signed Report (PDF)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: INVOICE DETAILS & REMITTANCE
+       ========================================================================== -->
+  <div class="portal-modal-backdrop" id="invoiceModal">
+    <div class="portal-modal-window">
+      <div class="portal-modal-header">
+        <h3 class="portal-modal-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)"
+            stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <line x1="2" y1="10" x2="22" y2="10" />
+          </svg>
+          <span id="invoiceModalTitle">Invoice Detail: INV-2026-0842</span>
+        </h3>
+        <button class="portal-modal-close js-close-modal">&times;</button>
+      </div>
+      <div class="portal-modal-body">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9rem;">
+          <div>
+            <div style="color: var(--portal-text-muted); font-size: 0.78rem;">Billed To:</div>
+            <strong style="color: var(--portal-text-title);">Meridian Commercial Properties Ltd</strong>
+            <div>Marcus Sterling, Facility Director</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="color: var(--portal-text-muted); font-size: 0.78rem;">Invoice Amount:</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: var(--portal-accent-pink);" id="invoiceModalAmount">
+              $14,200.00</div>
+            <div style="font-size: 0.76rem; color: #fbbf24;" id="invoiceModalStatus">Status: Pending Approval</div>
+          </div>
+        </div>
+
+        <div
+          style="background: var(--portal-card-alt); border: 1px solid var(--portal-border); border-radius: 8px; overflow: hidden; margin-bottom: 18px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+            <thead>
+              <tr style="background: rgba(255,255,255,0.04); color: var(--portal-text-title); text-align: left;">
+                <th style="padding: 10px 14px;">Service Line Item</th>
+                <th style="padding: 10px 14px; text-align: right;">Rate / Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid var(--portal-border);">Twin-Rope Industrial
+                  Abseil Descent (Floors 1–52)</td>
+                <td
+                  style="padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--portal-border); color: var(--portal-text-title);">
+                  $11,800.00</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 14px; border-bottom: 1px solid var(--portal-border);">0.00 PPM De-Ionized
+                  Reverse Osmosis Water Supply</td>
+                <td
+                  style="padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--portal-border); color: var(--portal-text-title);">
+                  $1,400.00</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 14px;">Site-Specific RAMS &amp; Anchor Pull-Test Verification</td>
+                <td style="padding: 10px 14px; text-align: right; color: var(--portal-text-title);">$1,000.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="portal-modal-footer">
+        <button type="button" class="portal-btn-outline js-close-modal">Close</button>
+        <button type="button" class="portal-btn-primary js-pay-invoice-action">
+          <span>Approve &amp; Pay Invoice</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="portal-toast" id="portalToast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--portal-accent-pink)" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+    <span id="portalToastText">Action completed successfully</span>
+  </div>
+
+  <script src="js/portal.js"></script>
+</body>
+
+</html>
